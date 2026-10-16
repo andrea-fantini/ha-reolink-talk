@@ -69,7 +69,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
                 port=base_kwargs["http_port"],
                 use_https=base_kwargs["use_https"],
                 bc_port=base_kwargs["port"],
-                aiohttp_get_session_callback=lambda: async_get_clientsession(hass),
+                aiohttp_get_session_callback=lambda: async_get_clientsession(hass, verify_ssl=False),
             )
             await probe_host.get_host_data()
             for ch in probe_host.channels:
@@ -166,7 +166,7 @@ class ReolinkTalkPlayer(MediaPlayerEntity):
                 port=self._target.http_port,
                 use_https=self._target.use_https,
                 bc_port=self._target.port,
-                aiohttp_get_session_callback=lambda: async_get_clientsession(self.hass),
+                aiohttp_get_session_callback=lambda: async_get_clientsession(self.hass, verify_ssl=False),
             )
             try:
                 await host.login()
@@ -275,7 +275,7 @@ class ReolinkTalkPlayer(MediaPlayerEntity):
             port=self._target.http_port,
             use_https=self._target.use_https,
             bc_port=self._target.port,
-            aiohttp_get_session_callback=lambda: async_get_clientsession(self.hass),
+            aiohttp_get_session_callback=lambda: async_get_clientsession(self.hass, verify_ssl=False),
         )
         bc = host.baichuan
 
@@ -322,7 +322,7 @@ class ReolinkTalkPlayer(MediaPlayerEntity):
             port=self._target.http_port,
             use_https=self._target.use_https,
             bc_port=self._target.port,
-            aiohttp_get_session_callback=lambda: async_get_clientsession(self.hass),
+            aiohttp_get_session_callback=lambda: async_get_clientsession(self.hass, verify_ssl=False),
         )
         bc = host.baichuan
         try:
